@@ -1,5 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "Maze.h"
+#include <time.h>
 using namespace std;
 
 class MazeGame {
@@ -108,17 +109,17 @@ public:
 	}
 	void MakeE()	//적 위치 지정
 	{
-		for (int i = 1; i < height-1; i++)
+		for (int i = 1; i < height - 1; i++)
 		{
-				for (int z = width - 1; z > 0; z--)
+			for (int z = width - 1; z > 0; z--)
+			{
+				if (map[i][z] == '0')
 				{
-					if (map[i][z] == '0')
-					{
-						map[i][z] = '2';
-						ER = z; EC = i;
-						printf("%d %d", i, z);
-						return;
-					}
+					map[i][z] = '2';
+					ER = z; EC = i;
+					printf("%d %d", i, z);
+					return;
+				}
 			}
 		}
 	}
@@ -186,7 +187,7 @@ public:
 						printf("==== You Lose!! ====\n");
 						showMap();
 						return;
-					}					
+					}
 					else
 						continue;
 				case 2:	//좌 이동
@@ -238,7 +239,7 @@ public:
 			switch (key)
 			{
 			case 72:	//상
-				if (map[r - 1][c] == 'x') {	//상단 도착점인 경우 완료
+				if (r - 1 >= 0 && c >= 0 && r - 1 < height && c < width && map[r - 1][c] == 'x') {	//상단 도착점인 경우 완료
 					map[r][c] = '0';
 					map[r - 1][c] = '.';
 					ReGame(cnt); return;
@@ -449,7 +450,7 @@ public:
 						ShowGame();
 						return;
 					}
-					else if (r + 1 > 0 && c > 0 && r + 1 <= height && c <= width && map[r + 1][c] == '0')	//하단 통로
+					else if (r + 1 >= 0 && c >= 0 && r + 1 < height && c < width && map[r + 1][c] == '0')	//하단 통로
 					{
 						system("cls");
 						map[r][c] = '0';
