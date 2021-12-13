@@ -13,20 +13,20 @@ class MazeGame {
 	LinkedStack stackMaze;
 	LinkedStack enemy;
 public:
-	void in(int w, int h) //map ì´ì°¨ì› ë°°ì—´ì„ ë™ì ìœ¼ë¡œ í• ë‹¹
+	void in(int w, int h) //map ÀÌÂ÷¿ø ¹è¿­À» µ¿ÀûÀ¸·Î ÇÒ´ç
 	{
 		map = new char* [h];
 		for (int i = 0; i < h; i++)
 			map[i] = new char[w];
 	}
-	void ReadFile(const char* filename)	//íŒŒì¼ ì—´ê¸° ë° í¬ê¸° ê³„ì‚°
+	void ReadFile(const char* filename)	//ÆÄÀÏ ¿­±â ¹× Å©±â °è»ê
 	{
 		char c;
 		ifstream fp(filename);
 		if (fp.fail())
-			printf("Error: íŒŒì¼ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+			printf("Error: ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
 
-		//ë¯¸ë¡œ í¬ê¸° ê³„ì‚°
+		//¹Ì·Î Å©±â °è»ê
 		FILE* fd = fopen(filename, "r");
 		int word = 0;
 		height = 1;
@@ -40,10 +40,10 @@ public:
 		}
 		width = word / height;
 
-		//map ì´ì°¨ì›ë°°ì—´ ë™ì ìœ¼ë¡œ í• ë‹¹
+		//map ÀÌÂ÷¿ø¹è¿­ µ¿ÀûÀ¸·Î ÇÒ´ç
 		in(width, height);
 
-		//map ì´ì°¨ì›ë°°ì—´ì— ë¯¸ë¡œ ì‚½ì…
+		//map ÀÌÂ÷¿ø¹è¿­¿¡ ¹Ì·Î »ğÀÔ
 		for (int i = 0; i < height; i++)
 		{
 			for (int z = 0; z < width; z++)
@@ -60,54 +60,54 @@ public:
 		fp.close();
 	}
 	void showMap() {
-		//printf("ì „ì²´ ë¯¸ë¡œì˜ í¬ê¸° = %d X %d \n", width, height);
+		//printf("ÀüÃ¼ ¹Ì·ÎÀÇ Å©±â = %d X %d \n", width, height);
 		printf("\n\n  [ Map ]\n\n");
 		for (int i = 0; i < height; i++)
 		{
 			for (int z = 0; z < width; z++)
 			{
-				if (map[i][z] == '0') //ê¸¸
+				if (map[i][z] == '0') //±æ
 				{
 					cout << "  ";
 				}
-				else if (map[i][z] == '1') //ë²½
+				else if (map[i][z] == '1') //º®
 				{
-					cout << "â– ";
+					cout << "¡á";
 				}
-				else if (map[i][z] == 'e') //ì…êµ¬
+				else if (map[i][z] == 'e') //ÀÔ±¸
 				{
 					cout << "o ";
 				}
-				else if (map[i][z] == 'x') //ì¶œêµ¬
+				else if (map[i][z] == 'x') //Ãâ±¸
 				{
 					cout << "x ";
 				}
-				else if (map[i][z] == '.') //ì§€ë‚˜ì˜¨ ê¸¸
+				else if (map[i][z] == '.') //Áö³ª¿Â ±æ
 				{
 					cout << "* ";
 				}
-				else if (map[i][z] == '2')	//ì 
+				else if (map[i][z] == '2')	//Àû
 				{
-					std::cout << "â–²";
+					std::cout << "¡ã";
 				}
 			}
 			cout << endl;
 		}
 		cout << endl;
 	}
-	//íƒìƒ‰ ì„±ê³µ ì‹œ ì¶œë ¥
+	//Å½»ö ¼º°ø ½Ã Ãâ·Â
 	void ReGame(int cnt)
 	{
 		cnt++;
 		stackMaze.pop();
 		system("cls");
-		printf("\n!íƒìƒ‰ ì„±ê³µ!\n");
+		printf("\n!Å½»ö ¼º°ø!\n");
 		printf("=====[ Result ]=====\n");
-		printf("ì´ë™: %dë²ˆ", cnt);
+		printf("ÀÌµ¿: %d¹ø", cnt);
 		showMap();
 		return;
 	}
-	void MakeE()	//ì  ìœ„ì¹˜ ì§€ì •
+	void MakeE()	//Àû À§Ä¡ ÁöÁ¤
 	{
 		for (int i = 1; i < height - 1; i++)
 		{
@@ -123,7 +123,7 @@ public:
 			}
 		}
 	}
-	//ë¯¸ë¡œ ê²Œì„ ver2
+	//¹Ì·Î °ÔÀÓ ver2
 	void MazeGameStack()
 	{
 		int num = 0;
@@ -131,7 +131,7 @@ public:
 		bool ene = false;
 		MakeE();
 		printf("Enemy is Coming!! Move.");
-		//ì²« ìœ„ì¹˜ push
+		//Ã¹ À§Ä¡ push
 		enemy.push(new Node(EC, ER));
 		showMap();
 		int cnt = 0;
@@ -143,26 +143,26 @@ public:
 			int c = here->col;
 			Node* enemyHere = enemy.peek();
 
-			srand((unsigned int)time(NULL));//ëœë¤ ìˆ˜
+			srand((unsigned int)time(NULL));//·£´ı ¼ö
 			int er = enemyHere->row;
 			int ec = enemyHere->col;
 
-			//ì  ëœë¤ìœ¼ë¡œ ì›€ì§ì´ê¸°
+			//Àû ·£´ıÀ¸·Î ¿òÁ÷ÀÌ±â
 			while (1) {
-				int nu = rand() % 4;	//0,1,2,3 ëœë¤
+				int nu = rand() % 4;	//0,1,2,3 ·£´ı
 				map[er][ec] = '0';
 
 				switch (nu)
 				{
-				case 0:	//ìƒ ì´ë™
-					if (er - 1 >= 0 && ec >= 0 && er - 1 < height && ec < width && map[er - 1][ec] == '0')//ìƒë‹¨ì´ í†µë¡œì¸ ê²½ìš°
+				case 0:	//»ó ÀÌµ¿
+					if (er - 1 >= 0 && ec >= 0 && er - 1 < height && ec < width && map[er - 1][ec] == '0')//»ó´ÜÀÌ Åë·ÎÀÎ °æ¿ì
 					{
 						enemy.pop();
 						enemy.push(new Node(er - 1, ec));
 						map[er - 1][ec] = '2';
 						break;
 					}
-					else if (er - 1 >= 0 && ec >= 0 && er - 1 < height && ec < width && map[er - 1][ec] == '.')	//ìì‹ ì´ ì ì˜ ìƒë‹¨ ìœ„ì¹˜í•œ ê²½ìš° ì‹¤íŒ¨
+					else if (er - 1 >= 0 && ec >= 0 && er - 1 < height && ec < width && map[er - 1][ec] == '.')	//ÀÚ½ÅÀÌ ÀûÀÇ »ó´Ü À§Ä¡ÇÑ °æ¿ì ½ÇÆĞ
 					{
 						enemy.pop();
 						map[er - 1][ec] = '2';
@@ -172,15 +172,15 @@ public:
 					}
 					else
 						continue;
-				case 1:	//í•˜ ì´ë™
-					if (er + 1 >= 0 && ec >= 0 && er + 1 < height && ec < width && map[er + 1][ec] == '0')//í•˜ë‹¨ì´ í†µë¡œì¸ ê²½ìš°
+				case 1:	//ÇÏ ÀÌµ¿
+					if (er + 1 >= 0 && ec >= 0 && er + 1 < height && ec < width && map[er + 1][ec] == '0')//ÇÏ´ÜÀÌ Åë·ÎÀÎ °æ¿ì
 					{
 						enemy.pop();
 						enemy.push(new Node(er + 1, ec));
 						map[er + 1][ec] = '2';
 						break;
 					}
-					else if (er + 1 >= 0 && ec >= 0 && er + 1 < height && ec < width && map[er + 1][ec] == '.')	//ìì‹ ì´ ì ì˜ í•˜ë‹¨ì— ìœ„ì¹˜í•œ ê²½ìš° ì‹¤íŒ¨
+					else if (er + 1 >= 0 && ec >= 0 && er + 1 < height && ec < width && map[er + 1][ec] == '.')	//ÀÚ½ÅÀÌ ÀûÀÇ ÇÏ´Ü¿¡ À§Ä¡ÇÑ °æ¿ì ½ÇÆĞ
 					{
 						enemy.pop();
 						map[er + 1][ec] = '2';
@@ -190,15 +190,15 @@ public:
 					}
 					else
 						continue;
-				case 2:	//ì¢Œ ì´ë™
-					if (er >= 0 && ec - 1 >= 0 && er < height && ec - 1 < width && map[er][ec - 1] == '0')//ì¢Œì¸¡ì´ í†µë¡œì¸ ê²½ìš°
+				case 2:	//ÁÂ ÀÌµ¿
+					if (er >= 0 && ec - 1 >= 0 && er < height && ec - 1 < width && map[er][ec - 1] == '0')//ÁÂÃøÀÌ Åë·ÎÀÎ °æ¿ì
 					{
 						enemy.pop();
 						enemy.push(new Node(er, ec - 1));
 						map[er][ec - 1] = '2';
 						break;
 					}
-					else if (er >= 0 && ec - 1 >= 0 && er < height && ec - 1 < width && map[er][ec - 1] == '.')	//ìì‹ ì´ ì ì˜ ì¢Œì¸¡ì— ìœ„ì¹˜í•œ ê²½ìš° ì‹¤íŒ¨
+					else if (er >= 0 && ec - 1 >= 0 && er < height && ec - 1 < width && map[er][ec - 1] == '.')	//ÀÚ½ÅÀÌ ÀûÀÇ ÁÂÃø¿¡ À§Ä¡ÇÑ °æ¿ì ½ÇÆĞ
 					{
 						enemy.pop();
 						map[er][ec - 1] = '2';
@@ -208,15 +208,15 @@ public:
 					}
 					else
 						continue;
-				case 3:	//ìš° ì´ë™
-					if (er >= 0 && ec + 1 >= 0 && er < height && ec + 1 < width && map[er][ec + 1] == '0')//ìš°ì¸¡ì´ í†µë¡œì¸ ê²½ìš°
+				case 3:	//¿ì ÀÌµ¿
+					if (er >= 0 && ec + 1 >= 0 && er < height && ec + 1 < width && map[er][ec + 1] == '0')//¿ìÃøÀÌ Åë·ÎÀÎ °æ¿ì
 					{
 						enemy.pop();
 						enemy.push(new Node(er, ec + 1));
 						map[er][ec + 1] = '2';
 						break;
 					}
-					else if (er >= 0 && ec + 1 >= 0 && er < height && ec + 1 < width && map[er][ec + 1] == '.')	//ìì‹ ì´ ì ì˜ ì¢Œì¸¡ì— ìœ„ì¹˜í•œ ê²½ìš° ì‹¤íŒ¨
+					else if (er >= 0 && ec + 1 >= 0 && er < height && ec + 1 < width && map[er][ec + 1] == '.')	//ÀÚ½ÅÀÌ ÀûÀÇ ÁÂÃø¿¡ À§Ä¡ÇÑ °æ¿ì ½ÇÆĞ
 					{
 						enemy.pop();
 						map[er][ec + 1] = '2';
@@ -230,28 +230,28 @@ public:
 				break;
 			}
 
-			//ì§ì ‘ ì›€ì§ì´ê¸°
-			printf("í”¼í•´ì„œ ì´ë™í•˜ì„¸ìš”.\n");
+			//Á÷Á¢ ¿òÁ÷ÀÌ±â
+			printf("ÇÇÇØ¼­ ÀÌµ¿ÇÏ¼¼¿ä.\n");
 			printf("enter\n");
-			int key;	//ì´ë™ ë°©í–¥ í‚¤ë³´ë“œ ì…ë ¥
+			int key;	//ÀÌµ¿ ¹æÇâ Å°º¸µå ÀÔ·Â
 			key = maze.get_Enterkey();
 
 			switch (key)
 			{
-			case 72:	//ìƒ
-				if (r - 1 >= 0 && c >= 0 && r - 1 < height && c < width && map[r - 1][c] == 'x') {	//ìƒë‹¨ ë„ì°©ì ì¸ ê²½ìš° ì™„ë£Œ
+			case 72:	//»ó
+				if (r - 1 >= 0 && c >= 0 && r - 1 < height && c < width && map[r - 1][c] == 'x') {	//»ó´Ü µµÂøÁ¡ÀÎ °æ¿ì ¿Ï·á
 					map[r][c] = '0';
 					map[r - 1][c] = '.';
 					ReGame(cnt); return;
 				}
-				else if (r - 1 >= 0 && c >= 0 && r - 1 < height && c < width && map[r - 1][c] == '0')	//ìƒë‹¨ ì´ë™ ê°€ëŠ¥ ê²½ìš°
+				else if (r - 1 >= 0 && c >= 0 && r - 1 < height && c < width && map[r - 1][c] == '0')	//»ó´Ü ÀÌµ¿ °¡´É °æ¿ì
 				{
 					map[r][c] = '0';
 					map[r - 1][c] = '.';
 					stackMaze.pop();
 					stackMaze.push(new Node(r - 1, c));
 				}
-				else if (r - 1 >= 0 && c >= 0 && r - 1 < height && c < width && map[r - 1][c] == '2')	//ìƒë‹¨ ì ì´ ìˆëŠ” ê²½ìš° ì‹¤íŒ¨
+				else if (r - 1 >= 0 && c >= 0 && r - 1 < height && c < width && map[r - 1][c] == '2')	//»ó´Ü ÀûÀÌ ÀÖ´Â °æ¿ì ½ÇÆĞ
 				{
 					map[r][c] = '0';
 					map[r - 1][c] = '2';
@@ -261,20 +261,20 @@ public:
 					return;
 				}
 				break;
-			case 80:	//í•˜
-				if (r + 1 >= 0 && c >= 0 && r + 1 < height && c < width && map[r + 1][c] == 'x') {	//í•˜ë‹¨ ì¶œêµ¬ ì„±ê³µ
+			case 80:	//ÇÏ
+				if (r + 1 >= 0 && c >= 0 && r + 1 < height && c < width && map[r + 1][c] == 'x') {	//ÇÏ´Ü Ãâ±¸ ¼º°ø
 					map[r][c] = '0';
 					map[r + 1][c] = '.';
 					ReGame(cnt); return;
 				}
-				else if (r + 1 >= 0 && c >= 0 && r + 1 < height && c < width && map[r + 1][c] == '0')	//í•˜ë‹¨ í†µë¡œ
+				else if (r + 1 >= 0 && c >= 0 && r + 1 < height && c < width && map[r + 1][c] == '0')	//ÇÏ´Ü Åë·Î
 				{
 					map[r][c] = '0';
 					map[r + 1][c] = '.';
 					stackMaze.pop();
 					stackMaze.push(new Node(r + 1, c));
 				}
-				else if (r + 1 >= 0 && c >= 0 && r + 1 < height && c < width && map[r + 1][c] == '2')	//í•˜ë‹¨ ì  ìœ„ì¹˜í•œ ê²½ìš° ì‹¤íŒ¨
+				else if (r + 1 >= 0 && c >= 0 && r + 1 < height && c < width && map[r + 1][c] == '2')	//ÇÏ´Ü Àû À§Ä¡ÇÑ °æ¿ì ½ÇÆĞ
 				{
 					map[r][c] = '0';
 					map[r + 1][c] = '2';
@@ -284,20 +284,20 @@ public:
 					return;
 				}
 				break;
-			case 75:	//ì¢Œ
-				if (r >= 0 && c - 1 >= 0 && r < height && c - 1 < width && map[r][c - 1] == 'x') {	//ì¢Œì¸¡ ì¶œêµ¬ ì„±ê³µ
+			case 75:	//ÁÂ
+				if (r >= 0 && c - 1 >= 0 && r < height && c - 1 < width && map[r][c - 1] == 'x') {	//ÁÂÃø Ãâ±¸ ¼º°ø
 					map[r][c] = '0';
 					map[r][c - 1] = '.';
 					ReGame(cnt); return;
 				}
-				else if (r >= 0 && c - 1 >= 0 && r < height && c - 1 < width && map[r][c - 1] == '0')	//ì¢Œì¸¡ í†µë¡œ
+				else if (r >= 0 && c - 1 >= 0 && r < height && c - 1 < width && map[r][c - 1] == '0')	//ÁÂÃø Åë·Î
 				{
 					map[r][c] = '0';
 					map[r][c - 1] = '.';
 					stackMaze.pop();
 					stackMaze.push(new Node(r, c - 1));
 				}
-				else if (r >= 0 && c - 1 >= 0 && r < height && c - 1 < width && map[r][c - 1] == '2')	//ì¢Œì¸¡ ì  ìœ„ì¹˜ ì‹¤íŒ¨
+				else if (r >= 0 && c - 1 >= 0 && r < height && c - 1 < width && map[r][c - 1] == '2')	//ÁÂÃø Àû À§Ä¡ ½ÇÆĞ
 				{
 					map[r][c] = '0';
 					map[r][c - 1] = '2';
@@ -307,20 +307,20 @@ public:
 					return;
 				}
 				break;
-			case 77:	//ìš°
-				if (r >= 0 && c + 1 >= 0 && r < height && c + 1 < width && map[r][c + 1] == 'x') {	//ìš°ì¸¡ ì¶œêµ¬ ì„±ê³µ
+			case 77:	//¿ì
+				if (r >= 0 && c + 1 >= 0 && r < height && c + 1 < width && map[r][c + 1] == 'x') {	//¿ìÃø Ãâ±¸ ¼º°ø
 					map[r][c] = '0';
 					map[r][c + 1] = '.';
 					ReGame(cnt); return;
 				}
-				else if (r >= 0 && c + 1 >= 0 && r < height && c + 1 < width && map[r][c + 1] == '0')	//ìš°ì¸¡ í†µë¡œ
+				else if (r >= 0 && c + 1 >= 0 && r < height && c + 1 < width && map[r][c + 1] == '0')	//¿ìÃø Åë·Î
 				{
 					map[r][c] = '0';
 					map[r][c + 1] = '.';
 					stackMaze.pop();
 					stackMaze.push(new Node(r, c + 1));
 				}
-				else if (r >= 0 && c + 1 >= 0 && r < height && c + 1 < width && map[r][c + 1] == '2')	//ìš°ì¸¡ ì  ìœ„ì¹˜ ì‹¤íŒ¨
+				else if (r >= 0 && c + 1 >= 0 && r < height && c + 1 < width && map[r][c + 1] == '2')	//¿ìÃø Àû À§Ä¡ ½ÇÆĞ
 				{
 					map[r][c] = '0';
 					map[r][c + 1] = '2';
@@ -338,7 +338,7 @@ public:
 	}
 
 	//===========
-	//ë¯¸ë¡œ3
+	//¹Ì·Î3
 
 	void ShowGame()
 	{
@@ -347,47 +347,47 @@ public:
 		{
 			for (int j = 0; j < width; j++)
 			{
-				if (j > width / 2 - 2 && j < width / 2 + 1 && i < height - 1 && i>1)	//ë¯¸ë¡œ ê°€ë¡œ í¬ê¸° / 2 - 2 ë³´ë‹¤ í¬ê³  ë¯¸ë¡œ ê°€ë¡œí¬ê¸°/2 +1 ë³´ë‹¤ ì‘ì€ ê²½ìš°, 
-				{																		//ì„¸ë¡œí¬ê¸° -1 ë³´ë‹¤ ì‘ê³  í¬ê¸° 1ë³´ë‹¤ í´ë•Œ í†µë¡œ, ë²½ì„ ?ë¡œ í‘œì‹œ 
-					if (map[i][j] == '0') //ê¸¸
+				if (j > width / 2 - 2 && j < width / 2 + 1 && i < height - 1 && i>1)	//¹Ì·Î °¡·Î Å©±â / 2 - 2 º¸´Ù Å©°í ¹Ì·Î °¡·ÎÅ©±â/2 +1 º¸´Ù ÀÛÀº °æ¿ì, 
+				{																		//¼¼·ÎÅ©±â -1 º¸´Ù ÀÛ°í Å©±â 1º¸´Ù Å¬¶§ Åë·Î, º®À» ?·Î Ç¥½Ã 
+					if (map[i][j] == '0') //±æ
 					{
 						std::cout << "? ";
 					}
-					else if (map[i][j] == '1')	//ë²½
+					else if (map[i][j] == '1')	//º®
 					{
 						std::cout << "? ";
 					}
-					else if (map[i][j] == 'e')	//ì…êµ¬
+					else if (map[i][j] == 'e')	//ÀÔ±¸
 					{
 						std::cout << "o ";
 					}
-					else if (map[i][j] == 'x')	//ì¶œêµ¬
+					else if (map[i][j] == 'x')	//Ãâ±¸
 					{
 						std::cout << "x ";
 					}
-					else if (map[i][j] == '.')	//ì§€ë‚˜ê°„ ê³³
+					else if (map[i][j] == '.')	//Áö³ª°£ °÷
 					{
 						std::cout << "* ";
 					}
 				}
 				else {
-					if (map[i][j] == '0') //ê¸¸
+					if (map[i][j] == '0') //±æ
 					{
 						std::cout << "  ";
 					}
-					else if (map[i][j] == '1')	//ë²½
+					else if (map[i][j] == '1')	//º®
 					{
-						std::cout << "â– ";
+						std::cout << "¡á";
 					}
-					else if (map[i][j] == 'e')	//ì…êµ¬
+					else if (map[i][j] == 'e')	//ÀÔ±¸
 					{
 						std::cout << "o ";
 					}
-					else if (map[i][j] == 'x')	//ì¶œêµ¬
+					else if (map[i][j] == 'x')	//Ãâ±¸
 					{
 						std::cout << "x ";
 					}
-					else if (map[i][j] == '.')	//ì§€ë‚˜ê°„ ê³³
+					else if (map[i][j] == '.')	//Áö³ª°£ °÷
 					{
 						std::cout << "* ";
 					}
@@ -398,7 +398,7 @@ public:
 	}
 	void StackGameTwo()
 	{
-		printf("ë²½ì— ë¶€ë”ªíˆì§€ ì•Šê³  ì›€ì§ì´ì„¸ìš”(ê¸°íšŒ 3ë²ˆ)\n");
+		printf("º®¿¡ ºÎµúÈ÷Áö ¾Ê°í ¿òÁ÷ÀÌ¼¼¿ä(±âÈ¸ 3¹ø)\n");
 		ShowGame();
 		int count = 0;
 
@@ -408,31 +408,31 @@ public:
 			int r = here->row;
 			int c = here->col;
 
-			//ì§ì ‘ ì›€ì§ì´ê¸°
+			//Á÷Á¢ ¿òÁ÷ÀÌ±â
 			int key;
 			key = maze.get_Enterkey();
 
 			if (count < 3) {
 				switch (key)
 				{
-				case 72:	//ìƒ
+				case 72:	//»ó
 					if (r - 1 >= 0 && c >= 0 && r - 1 < height && c < width && map[r - 1][c] == 'x') {
 						map[r][c] = '0';
 						map[r - 1][c] = '.';
 						stackMaze.pop();
 						system("cls");
-						printf("\n!íƒìƒ‰ ì„±ê³µ!\n");
+						printf("\n!Å½»ö ¼º°ø!\n");
 						ShowGame();
 						return;
 					}
-					else if (r - 1 >= 0 && c >= 0 && r - 1 < height && c < width && map[r - 1][c] == '0')	//ìƒë‹¨ ì´ë™ ê°€ëŠ¥ ê²½ìš°
+					else if (r - 1 >= 0 && c >= 0 && r - 1 < height && c < width && map[r - 1][c] == '0')	//»ó´Ü ÀÌµ¿ °¡´É °æ¿ì
 					{
 						system("cls");
 						map[r][c] = '0';
 						map[r - 1][c] = '.';
 						stackMaze.pop();
 						stackMaze.push(new Node(r - 1, c));
-						printf("ì‹¤íŒ¨: %dë²ˆ \n", count);
+						printf("½ÇÆĞ: %d¹ø \n", count);
 						ShowGame();
 					}
 					else {
@@ -440,24 +440,24 @@ public:
 						count++;
 					}
 					break;
-				case 80:	//í•˜
+				case 80:	//ÇÏ
 					if (r + 1 >= 0 && c >= 0 && r + 1 < height && c < width && map[r + 1][c] == 'x') {
 						map[r][c] = '0';
 						map[r + 1][c] = '.';
 						stackMaze.pop();
 						system("cls");
-						printf("\n!íƒìƒ‰ ì„±ê³µ!\n");
+						printf("\n!Å½»ö ¼º°ø!\n");
 						ShowGame();
 						return;
 					}
-					else if (r + 1 >= 0 && c >= 0 && r + 1 < height && c < width && map[r + 1][c] == '0')	//í•˜ë‹¨ í†µë¡œ
+					else if (r + 1 >= 0 && c >= 0 && r + 1 < height && c < width && map[r + 1][c] == '0')	//ÇÏ´Ü Åë·Î
 					{
 						system("cls");
 						map[r][c] = '0';
 						map[r + 1][c] = '.';
 						stackMaze.pop();
 						stackMaze.push(new Node(r + 1, c));
-						printf("ì‹¤íŒ¨: %dë²ˆ \n", count);
+						printf("½ÇÆĞ: %d¹ø \n", count);
 						ShowGame();
 					}
 					else {
@@ -465,24 +465,24 @@ public:
 						count++;
 					}
 					break;
-				case 75:	//ì¢Œ
+				case 75:	//ÁÂ
 					if (r >= 0 && c - 1 >= 0 && r < height && c - 1 < width && map[r][c - 1] == 'x') {
 						map[r][c] = '0';
 						map[r][c - 1] = '.';
 						stackMaze.pop();
 						system("cls");
-						printf("\n!íƒìƒ‰ ì„±ê³µ!\n");
+						printf("\n!Å½»ö ¼º°ø!\n");
 						ShowGame();
 						return;
 					}
-					else if (r >= 0 && c - 1 >= 0 && r < height && c - 1 < width && map[r][c - 1] == '0')	//ì¢Œì¸¡ í†µë¡œ
+					else if (r >= 0 && c - 1 >= 0 && r < height && c - 1 < width && map[r][c - 1] == '0')	//ÁÂÃø Åë·Î
 					{
 						system("cls");
 						map[r][c] = '0';
 						map[r][c - 1] = '.';
 						stackMaze.pop();
 						stackMaze.push(new Node(r, c - 1));
-						printf("ì‹¤íŒ¨: %dë²ˆ \n", count);
+						printf("½ÇÆĞ: %d¹ø \n", count);
 						ShowGame();
 					}
 					else {
@@ -490,24 +490,24 @@ public:
 						count++;
 					}
 					break;
-				case 77:	//ìš°
+				case 77:	//¿ì
 					if (r >= 0 && c + 1 >= 0 && r < height && c + 1 < width && map[r][c + 1] == 'x') {
 						map[r][c] = '0';
 						map[r][c + 1] = '.';
 						stackMaze.pop();
 						system("cls");
-						printf("\n!íƒìƒ‰ ì„±ê³µ!\n");
+						printf("\n!Å½»ö ¼º°ø!\n");
 						ShowGame();
 						return;
 					}
-					else if (r >= 0 && c + 1 >= 0 && r < height && c + 1 < width && map[r][c + 1] == '0')	//ìš°ì¸¡ í†µë¡œ
+					else if (r >= 0 && c + 1 >= 0 && r < height && c + 1 < width && map[r][c + 1] == '0')	//¿ìÃø Åë·Î
 					{
 						system("cls");
 						map[r][c] = '0';
 						map[r][c + 1] = '.';
 						stackMaze.pop();
 						stackMaze.push(new Node(r, c + 1));
-						printf("ì‹¤íŒ¨: %dë²ˆ \n", count);
+						printf("½ÇÆĞ: %d¹ø \n", count);
 						ShowGame();
 					}
 					else {
@@ -520,7 +520,7 @@ public:
 			else
 			{
 				system("cls");
-				printf("ì‹¤íŒ¨!!\n");
+				printf("½ÇÆĞ!!\n");
 				ShowGame();
 				return;
 			}
@@ -528,3 +528,4 @@ public:
 		return;
 	}
 };
+
